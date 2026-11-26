@@ -1386,7 +1386,39 @@ html {
         color 0.2s ease,
         transform 0.2s ease;
 }
+/* =====================================
+   OQY DASHBOARD LOGOUT BUTTON
+===================================== */
 
+.logout-button {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    padding: 11px 12px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    background: transparent;
+    color: #64748b;
+
+    font-family: inherit;
+    font-size: 13px;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.logout-button:hover {
+    background: #fff1f2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
 .dashboard-card a:hover {
     color: #4f46e5;
     transform: translateX(3px);
