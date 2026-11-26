@@ -47,6 +47,7 @@ const OQYStudent = {
                 if (!section) return;
 
                 event.preventDefault();
+
                 section.scrollIntoView({
                     behavior: "smooth",
                     block: "start"
@@ -98,19 +99,6 @@ const OQYStudent = {
         activeLink.setAttribute("aria-current", "page");
     },
 
-    logout() {
-        if (this.isLoggingOut) return;
-
-        const confirmLogout = confirm(
-            "Ты действительно хочешь выйти из личного кабинета?"
-        );
-
-        if (!confirmLogout) return;
-
-        this.isLoggingOut = true;
-        window.location.href = "index.html";
-    },
-
     loadProfile() {
         console.log("Profile module ready");
     },
@@ -132,3 +120,4 @@ const OQYStudent = {
 document.addEventListener("DOMContentLoaded", () => {
     OQYStudent.init();
 });
+
