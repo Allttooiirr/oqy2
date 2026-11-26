@@ -1440,3 +1440,49 @@ html {
     color: #4f46e5;
     transform: translateX(3px);
 }
+/* =====================================
+   OQY NOTIFICATION SYSTEM
+===================================== */
+
+.oqy-notification {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 9999;
+
+    max-width: 360px;
+    padding: 16px 22px;
+
+    background: #111827;
+    color: #ffffff;
+
+    border-radius: 12px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    opacity: 0;
+    transform: translateY(-15px);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.oqy-notification.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.oqy-notification.success {
+    border-left: 4px solid #22c55e;
+}
+
+.oqy-notification.error {
+    border-left: 4px solid #ef4444;
+}
+
+.oqy-notification.warning {
+    border-left: 4px solid #f59e0b;
+}
