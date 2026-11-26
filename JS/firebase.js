@@ -1,6 +1,5 @@
 
 "use strict";
-
 // OQY — Firebase Configuration
 
 import { initializeApp } from
