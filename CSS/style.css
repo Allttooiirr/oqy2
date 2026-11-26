@@ -1419,6 +1419,23 @@ html {
     color: #dc2626;
     border-color: #fecaca;
 }
+/* =====================================
+   OQY DASHBOARD KEYBOARD ACCESSIBILITY
+===================================== */
+
+.student-nav a:focus-visible,
+.sidebar-bottom a:focus-visible,
+.logout-button:focus-visible,
+.student-module a:focus-visible,
+.dashboard-card a:focus-visible {
+    outline: 3px solid #6366f1;
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+.logout-button:focus-visible {
+    outline-offset: 3px;
+}
 .dashboard-card a:hover {
     color: #4f46e5;
     transform: translateX(3px);
