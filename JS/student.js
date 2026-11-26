@@ -5,47 +5,34 @@
 
 const OQYStudent = {
 
-init() {
+    init() {
 
-    this.navLinks = document.querySelectorAll(
-        ".student-nav a"
-    );
+        this.navLinks = document.querySelectorAll(
+            ".student-nav a"
+        );
 
-    this.sections = document.querySelectorAll(
-        ".student-section[id]"
-    );
+        this.sections = document.querySelectorAll(
+            ".student-section[id]"
+        );
 
-    if (!this.navLinks.length) return;
+        if (!this.navLinks.length) return;
 
-    this.initNavigation();
-    this.initScrollTracking();
+        this.initNavigation();
+        this.initScrollTracking();
 
-    const homeLink = Array.from(this.navLinks).find(
-        link => link.getAttribute("href") === "#"
-    );
+        const homeLink = Array.from(this.navLinks).find(
+            link => link.getAttribute("href") === "#"
+        );
 
-    if (homeLink) {
-        this.setActive(homeLink);
-logout() {
+        if (homeLink) {
+            this.setActive(homeLink);
+        }
 
-    if (this.isLoggingOut) return;
+        console.log("OQY Student Dashboard initialized");
+    },
 
-    const confirmLogout = confirm(
-        "Ты действительно хочешь выйти из личного кабинета?"
-    );
-
-    if (!confirmLogout) return;
-
-    this.isLoggingOut = true;
-
-    window.location.href = "index.html";
-
-},
-    
-
-    console.log("OQY Student Dashboard initialized");
-},
     initNavigation() {
+
         this.navLinks.forEach(link => {
 
             link.addEventListener("click", event => {
@@ -53,6 +40,7 @@ logout() {
                 const target = link.getAttribute("href");
 
                 if (target === "#") {
+
                     event.preventDefault();
 
                     window.scrollTo({
@@ -64,14 +52,17 @@ logout() {
                     return;
                 }
 
-               let section = null;
+                let section = null;
 
-try {
-    section = document.querySelector(target);
-} catch (error) {
-    console.warn("Invalid navigation target:", target);
-    return;
-}
+                try {
+                    section = document.querySelector(target);
+                } catch (error) {
+                    console.warn(
+                        "Invalid navigation target:",
+                        target
+                    );
+                    return;
+                }
 
                 if (!section) return;
 
@@ -83,75 +74,95 @@ try {
                 });
 
                 this.setActive(link);
+
             });
 
         });
+
     },
 
-   initScrollTracking() {
+    initScrollTracking() {
 
-    if (!("IntersectionObserver" in window)) return;
+        if (!("IntersectionObserver" in window)) return;
 
-    const observer = new IntersectionObserver(entries => {
+        const observer = new IntersectionObserver(entries => {
 
-        entries.forEach(entry => {
+            entries.forEach(entry => {
 
-            if (!entry.isIntersecting) return;
+                if (!entry.isIntersecting) return;
 
-            const activeLink = Array.from(
-                this.navLinks
-            ).find(link =>
-                link.getAttribute("href") ===
-                `#${entry.target.id}`
-            );
+                const activeLink = Array.from(
+                    this.navLinks
+                ).find(link =>
+                    link.getAttribute("href") ===
+                    `#${entry.target.id}`
+                );
 
-            if (activeLink) {
-                this.setActive(activeLink);
+                if (activeLink) {
+                    this.setActive(activeLink);
+                }
+
+            });
+
+        }, {
+            rootMargin: "-15% 0px -70% 0px",
+            threshold: 0
+        });
+
+        this.sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY < 100) {
+
+                const homeLink = Array.from(
+                    this.navLinks
+                ).find(link =>
+                    link.getAttribute("href") === "#"
+                );
+
+                if (homeLink) {
+                    this.setActive(homeLink);
+                }
+
             }
+
+        }, { passive: true });
+
+    },
+
+    setActive(activeLink) {
+
+        this.navLinks.forEach(link => {
+
+            link.classList.remove("active");
+            link.removeAttribute("aria-current");
 
         });
 
-    }, {
-        rootMargin: "-15% 0px -70% 0px",
-        threshold: 0
-    });
+        activeLink.classList.add("active");
+        activeLink.setAttribute("aria-current", "page");
 
-    this.sections.forEach(section => {
-        observer.observe(section);
-    });
+    },
 
-    window.addEventListener("scroll", () => {
+    logout() {
 
-        if (window.scrollY < 100) {
+        if (this.isLoggingOut) return;
 
-            const homeLink = Array.from(
-                this.navLinks
-            ).find(link =>
-                link.getAttribute("href") === "#"
-            );
+        const confirmLogout = confirm(
+            "Ты действительно хочешь выйти из личного кабинета?"
+        );
 
-            if (homeLink) {
-                this.setActive(homeLink);
-            }
+        if (!confirmLogout) return;
 
-        }
+        this.isLoggingOut = true;
 
-    }, { passive: true });
+        window.location.href = "index.html";
 
-},
-   setActive(activeLink) {
+    },
 
-    this.navLinks.forEach(link => {
-
-        link.classList.remove("active");
-        link.removeAttribute("aria-current");
-
-    });
-
-    activeLink.classList.add("active");
-    activeLink.setAttribute("aria-current", "page");
-
-},
     loadProfile() {
         console.log("Profile module ready");
     },
