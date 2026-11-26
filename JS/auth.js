@@ -8,7 +8,9 @@ import { auth, db } from "./firebase.js";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    updateProfile
+    updateProfile,
+    deleteUser,
+    signOut
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
 import {
@@ -17,7 +19,6 @@ import {
     getDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
-
 
 const OQYAuth = {
 
@@ -124,8 +125,8 @@ const OQYAuth = {
     },
 
     async register(email, password, name) {
-        if (!name) {
-            this.showError("Введите ваше имя.");
+        if (!name || name.length > 80) {
+            this.showError("Имя должно содержать от 1 до 80 символов.");
             return;
         }
 
@@ -134,26 +135,48 @@ const OQYAuth = {
             return;
         }
 
-        const result = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+        let result;
 
-        await updateProfile(result.user, {
-            displayName: name
-        });
+        try {
+            result = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
-        await setDoc(doc(db, "users", result.user.uid), {
-            uid: result.user.uid,
-            name: name,
-            email: email,
-            role: "student",
-            plan: "free",
-            createdAt: serverTimestamp()
-        });
+            await updateProfile(result.user, {
+                displayName: name
+            });
 
-        window.location.href = "student.html";
+            await setDoc(doc(db, "users", result.user.uid), {
+                uid: result.user.uid,
+                name: name,
+                email: result.user.email,
+                role: "student",
+                plan: "free",
+                createdAt: serverTimestamp()
+            });
+
+            window.location.href = "student.html";
+
+        } catch (error) {
+
+            if (result?.user) {
+                try {
+                    await deleteUser(result.user);
+                } catch (cleanupError) {
+                    console.error("Account cleanup error:", cleanupError);
+
+                    try {
+                        await signOut(auth);
+                    } catch (signOutError) {
+                        console.error("Sign out error:", signOutError);
+                    }
+                }
+            }
+
+            throw error;
+        }
     },
 
     async login(email, password) {
@@ -163,38 +186,57 @@ const OQYAuth = {
             password
         );
 
-        const profileRef = doc(db, "users", result.user.uid);
-        const profileSnapshot = await getDoc(profileRef);
+        try {
+            const profileRef = doc(db, "users", result.user.uid);
+            const profileSnapshot = await getDoc(profileRef);
 
-        if (!profileSnapshot.exists()) {
-            this.showError(
-                "Профиль не найден. Обратитесь в поддержку OQY."
-            );
-            return;
+            if (!profileSnapshot.exists()) {
+                await signOut(auth);
+
+                this.showError(
+                    "Профиль не найден. Обратитесь в поддержку OQY."
+                );
+
+                return;
+            }
+
+            const profile = profileSnapshot.data();
+
+            if (profile.role === "student") {
+                window.location.href = "student.html";
+                return;
+            }
+
+            await signOut(auth);
+
+            if (profile.role === "business") {
+                this.showError(
+                    "Business Dashboard пока находится в разработке."
+                );
+                return;
+            }
+
+            if (profile.role === "admin") {
+                this.showError(
+                    "Admin Dashboard пока находится в разработке."
+                );
+                return;
+            }
+
+            this.showError("Роль аккаунта не распознана.");
+
+        } catch (error) {
+
+            if (auth.currentUser) {
+                try {
+                    await signOut(auth);
+                } catch (signOutError) {
+                    console.error("Sign out error:", signOutError);
+                }
+            }
+
+            throw error;
         }
-
-        const profile = profileSnapshot.data();
-
-        if (profile.role === "student") {
-            window.location.href = "student.html";
-            return;
-        }
-
-        if (profile.role === "business") {
-            this.showError(
-                "Business Dashboard пока находится в разработке."
-            );
-            return;
-        }
-
-        if (profile.role === "admin") {
-            this.showError(
-                "Admin Dashboard пока находится в разработке."
-            );
-            return;
-        }
-
-        this.showError("Роль аккаунта не распознана.");
     },
 
     showError(message) {
@@ -234,3 +276,4 @@ const OQYAuth = {
 document.addEventListener("DOMContentLoaded", () => {
     OQYAuth.init();
 });
+
