@@ -26,7 +26,19 @@ init() {
 
     if (homeLink) {
         this.setActive(homeLink);
+    logout() {
+
+    const confirmLogout = confirm(
+        "Ты действительно хочешь выйти из личного кабинета?"
+    );
+
+    if (!confirmLogout) return;
+
+    window.location.href = "index.html";
+
+},
     }
+    
 
     console.log("OQY Student Dashboard initialized");
 },
