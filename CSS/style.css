@@ -1243,6 +1243,7 @@ button {
 /* SECTIONS */
 
 .student-section {
+  scroll-margin-top: 30px;
     margin-bottom: 45px;
     background: white;
     padding: 30px;
