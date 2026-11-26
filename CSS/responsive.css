@@ -469,3 +469,25 @@ body {
     }
 
 }
+/* =====================================
+   OQY MOBILE SIDEBAR BOTTOM
+===================================== */
+
+@media (max-width: 768px) {
+
+    .sidebar-bottom {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #e9edf4;
+    }
+
+    .sidebar-bottom .logout-button {
+        margin-top: 0;
+    }
+
+}
