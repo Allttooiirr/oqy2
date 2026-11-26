@@ -144,8 +144,6 @@ const OQYStudent = {
 
         activeLink.classList.add("active");
         activeLink.setAttribute("aria-current", "page");
-
-    },
 showNotification(message, type = "success") {
 
     const oldNotification = document.querySelector(
@@ -178,6 +176,8 @@ showNotification(message, type = "success") {
     }, 3500);
 
 },
+    },
+
     logout() {
 
         if (this.isLoggingOut) return;
