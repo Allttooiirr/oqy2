@@ -41,7 +41,14 @@ const OQYStudent = {
                     return;
                 }
 
-                const section = document.querySelector(target);
+               let section = null;
+
+try {
+    section = document.querySelector(target);
+} catch (error) {
+    console.warn("Invalid navigation target:", target);
+    return;
+}
 
                 if (!section) return;
 
