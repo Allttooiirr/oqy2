@@ -491,3 +491,22 @@ body {
     }
 
 }
+/* =====================================
+   OQY NOTIFICATION RESPONSIVE
+===================================== */
+
+@media (max-width: 768px) {
+
+    .oqy-notification {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+
+        max-width: none;
+        width: auto;
+
+        padding: 14px 17px;
+        font-size: 13px;
+    }
+
+}
