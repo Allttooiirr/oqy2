@@ -5,23 +5,31 @@
 
 const OQYStudent = {
 
-    init() {
-        this.navLinks = document.querySelectorAll(
-            ".student-nav a"
-        );
+init() {
 
-        this.sections = document.querySelectorAll(
-            ".student-section[id]"
-        );
+    this.navLinks = document.querySelectorAll(
+        ".student-nav a"
+    );
 
-        if (!this.navLinks.length) return;
+    this.sections = document.querySelectorAll(
+        ".student-section[id]"
+    );
 
-        this.initNavigation();
-        this.initScrollTracking();
+    if (!this.navLinks.length) return;
 
-        console.log("OQY Student Dashboard initialized");
-    },
+    this.initNavigation();
+    this.initScrollTracking();
 
+    const homeLink = Array.from(this.navLinks).find(
+        link => link.getAttribute("href") === "#"
+    );
+
+    if (homeLink) {
+        this.setActive(homeLink);
+    }
+
+    console.log("OQY Student Dashboard initialized");
+},
     initNavigation() {
         this.navLinks.forEach(link => {
 
