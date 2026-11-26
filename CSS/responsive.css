@@ -455,3 +455,17 @@ body {
     }
 
 }
+/* =====================================
+   OQY MOBILE LOGOUT BUTTON
+===================================== */
+
+@media (max-width: 768px) {
+
+    .logout-button {
+        width: auto;
+        margin-top: 10px;
+        padding: 10px 14px;
+        font-size: 12px;
+    }
+
+}
