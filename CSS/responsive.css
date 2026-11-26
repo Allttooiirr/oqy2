@@ -427,3 +427,31 @@ body {
     }
 
 }
+/* =====================================
+   OQY DASHBOARD ACCESSIBILITY
+===================================== */
+
+@media (hover: none) {
+
+    .student-module:hover,
+    .dashboard-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .student-module,
+    .dashboard-card,
+    .student-module a,
+    .dashboard-card a {
+        transition: none;
+    }
+
+}
