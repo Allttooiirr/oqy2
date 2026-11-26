@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход и регистрация — OQY</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/responsive.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <main class="auth-page">
+
+        <a href="index.html" class="logo">oqy<span>.</span></a>
+
+        <div class="auth-container">
+
+            <div class="auth-heading">
+                <span class="section-label">WELCOME TO OQY</span>
+                <h1>Твоё будущее начинается здесь.</h1>
+                <p>Войди в аккаунт или создай новый.</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="loginTab">
+                    Войти
+                </button>
+
+                <button class="auth-tab" id="registerTab">
+                    Регистрация
+                </button>
+            </div>
+
+            <form id="authForm">
+
+                <div class="form-group" id="nameGroup" hidden>
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" placeholder="Твоё имя">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <input type="email" id="email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" placeholder="Минимум 8 символов" minlength="8" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">
+                    Продолжить →
+                </button>
+
+            </form>
+
+            <p class="auth-footer">
+                Продолжая, ты соглашаешься с условиями использования OQY.
+            </p>
+
+        </div>
+
+    </main>
+
+    <script src="JS/app.js" defer></script>
+    <script src="JS/auth.js" defer></script>
+
+</body>
+</html>
