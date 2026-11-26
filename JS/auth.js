@@ -1,3 +1,4 @@
+
 "use strict";
 
 // OQY Authentication Interface
@@ -12,7 +13,14 @@ const OQYAuth = {
         this.authForm = document.getElementById("authForm");
         this.nameGroup = document.getElementById("nameGroup");
 
-        if (!this.authForm) return;
+        if (
+            !this.authForm ||
+            !this.loginTab ||
+            !this.registerTab ||
+            !this.nameGroup
+        ) {
+            return;
+        }
 
         this.loginTab.addEventListener("click", () => {
             this.setMode("login");
@@ -22,16 +30,26 @@ const OQYAuth = {
             this.setMode("register");
         });
 
-        this.authForm.addEventListener("submit", (event) => {
+        this.authForm.addEventListener("submit", event => {
             event.preventDefault();
+
+            if (!this.authForm.reportValidity()) return;
+
+            console.log("Authentication form submitted:", this.mode);
 
             alert(
                 "Интерфейс готов. Серверная авторизация будет подключена позже."
             );
         });
+
+        this.setMode("login");
+
+        console.log("OQY Authentication initialized");
     },
 
     setMode(mode) {
+        if (mode !== "login" && mode !== "register") return;
+
         this.mode = mode;
 
         const isRegister = mode === "register";
@@ -39,14 +57,33 @@ const OQYAuth = {
         this.loginTab.classList.toggle("active", !isRegister);
         this.registerTab.classList.toggle("active", isRegister);
 
-        this.nameGroup.hidden = !isRegister;
-        document.getElementById("name").required = isRegister;
+        this.loginTab.setAttribute(
+            "aria-selected",
+            String(!isRegister)
+        );
 
-        this.authForm.querySelector(
+        this.registerTab.setAttribute(
+            "aria-selected",
+            String(isRegister)
+        );
+
+        this.nameGroup.hidden = !isRegister;
+
+        const nameInput = document.getElementById("name");
+
+        if (nameInput) {
+            nameInput.required = isRegister;
+        }
+
+        const submitButton = this.authForm.querySelector(
             'button[type="submit"]'
-        ).textContent = isRegister
-            ? "Создать аккаунт →"
-            : "Войти →";
+        );
+
+        if (submitButton) {
+            submitButton.textContent = isRegister
+                ? "Создать аккаунт →"
+                : "Войти →";
+        }
     }
 
 };
