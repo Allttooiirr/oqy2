@@ -26,7 +26,9 @@ init() {
 
     if (homeLink) {
         this.setActive(homeLink);
-    logout() {
+logout() {
+
+    if (this.isLoggingOut) return;
 
     const confirmLogout = confirm(
         "Ты действительно хочешь выйти из личного кабинета?"
@@ -34,10 +36,11 @@ init() {
 
     if (!confirmLogout) return;
 
+    this.isLoggingOut = true;
+
     window.location.href = "index.html";
 
 },
-    }
     
 
     console.log("OQY Student Dashboard initialized");
