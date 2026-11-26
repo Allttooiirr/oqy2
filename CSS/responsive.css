@@ -259,6 +259,55 @@ html, body {
     width: 100%;
     overflow-x: hidden;
 }
+/* =================================
+   OQY AUTH RESPONSIVE
+================================= */
+
+@media (max-width: 600px) {
+
+    .auth-page {
+        padding: 25px 16px;
+        justify-content: center;
+    }
+
+    .auth-page > .logo {
+        font-size: 29px;
+        margin-bottom: 25px;
+    }
+
+    .auth-container {
+        width: 100%;
+        padding: 26px 20px;
+        border-radius: 16px;
+    }
+
+    .auth-heading h1 {
+        font-size: 25px;
+    }
+
+    .auth-heading p {
+        font-size: 13px;
+    }
+
+    .auth-tabs {
+        margin-bottom: 22px;
+    }
+
+    .auth-tab {
+        padding: 13px 8px;
+        font-size: 14px;
+    }
+
+    .form-group input {
+        padding: 13px;
+        font-size: 16px;
+    }
+
+    .auth-footer {
+        font-size: 11px;
+    }
+
+}
 
 body {
     max-width: 100%;
