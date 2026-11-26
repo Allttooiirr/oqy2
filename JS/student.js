@@ -146,7 +146,38 @@ const OQYStudent = {
         activeLink.setAttribute("aria-current", "page");
 
     },
+showNotification(message, type = "success") {
 
+    const oldNotification = document.querySelector(
+        ".oqy-notification"
+    );
+
+    if (oldNotification) {
+        oldNotification.remove();
+    }
+
+    const notification = document.createElement("div");
+
+    notification.className = `oqy-notification ${type}`;
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    requestAnimationFrame(() => {
+        notification.classList.add("visible");
+    });
+
+    setTimeout(() => {
+
+        notification.classList.remove("visible");
+
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+
+    }, 3500);
+
+},
     logout() {
 
         if (this.isLoggingOut) return;
