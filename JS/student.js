@@ -73,40 +73,57 @@ try {
         });
     },
 
-    initScrollTracking() {
+   initScrollTracking() {
 
-        if (!("IntersectionObserver" in window)) return;
+    if (!("IntersectionObserver" in window)) return;
 
-        const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver(entries => {
 
-            entries.forEach(entry => {
+        entries.forEach(entry => {
 
-                if (!entry.isIntersecting) return;
+            if (!entry.isIntersecting) return;
 
-                const activeLink = Array.from(
-                    this.navLinks
-                ).find(link =>
-                    link.getAttribute("href") ===
-                    `#${entry.target.id}`
-                );
+            const activeLink = Array.from(
+                this.navLinks
+            ).find(link =>
+                link.getAttribute("href") ===
+                `#${entry.target.id}`
+            );
 
-                if (activeLink) {
-                    this.setActive(activeLink);
-                }
+            if (activeLink) {
+                this.setActive(activeLink);
+            }
 
-            });
-
-        }, {
-            rootMargin: "-15% 0px -70% 0px",
-            threshold: 0
         });
 
-        this.sections.forEach(section => {
-            observer.observe(section);
-        });
+    }, {
+        rootMargin: "-15% 0px -70% 0px",
+        threshold: 0
+    });
 
-    },
+    this.sections.forEach(section => {
+        observer.observe(section);
+    });
 
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY < 100) {
+
+            const homeLink = Array.from(
+                this.navLinks
+            ).find(link =>
+                link.getAttribute("href") === "#"
+            );
+
+            if (homeLink) {
+                this.setActive(homeLink);
+            }
+
+        }
+
+    }, { passive: true });
+
+},
    setActive(activeLink) {
 
     this.navLinks.forEach(link => {
