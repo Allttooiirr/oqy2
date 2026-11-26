@@ -6,7 +6,7 @@
 const OQYStudent = {
 
     init() {
-
+this.showNotification("Добро пожаловать в OQY!", "success");
         this.navLinks = document.querySelectorAll(
             ".student-nav a"
         );
