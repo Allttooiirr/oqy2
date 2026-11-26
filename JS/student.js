@@ -92,16 +92,19 @@ const OQYStudent = {
 
     },
 
-    setActive(activeLink) {
+   setActive(activeLink) {
 
-        this.navLinks.forEach(link => {
-            link.classList.remove("active");
-        });
+    this.navLinks.forEach(link => {
 
-        activeLink.classList.add("active");
+        link.classList.remove("active");
+        link.removeAttribute("aria-current");
 
-    },
+    });
 
+    activeLink.classList.add("active");
+    activeLink.setAttribute("aria-current", "page");
+
+},
     loadProfile() {
         console.log("Profile module ready");
     },
