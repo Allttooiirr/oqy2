@@ -130,11 +130,10 @@ const OQYAuth = {
             return;
         }
 
-        if (password.length < 6) {
-            this.showError("Пароль должен содержать минимум 6 символов.");
-            return;
-        }
-
+      if (password.length < 8) {
+    this.showError("Пароль должен содержать минимум 8 символов.");
+    return;
+}
         let result;
 
         try {
