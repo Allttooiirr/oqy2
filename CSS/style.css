@@ -1363,3 +1363,31 @@ html {
 .student-section h2 {
     scroll-margin-top: 30px;
 }
+/* =====================================
+   OQY DASHBOARD OVERVIEW INTERACTIONS
+===================================== */
+
+.dashboard-card {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(20, 35, 70, 0.07);
+    border-color: #d5dbea;
+}
+
+.dashboard-card a {
+    display: inline-block;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.dashboard-card a:hover {
+    color: #4f46e5;
+    transform: translateX(3px);
+}
